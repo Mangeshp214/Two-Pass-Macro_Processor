@@ -63,7 +63,7 @@ public class Pass1 extends MacroProcessor{
 				for(String comma : commaSepr) {
 					for(int i=0; i<alaSize; i++) {
 						if(comma.equals(getArgumentAtIndex(i))) {
-							subsLine = subsLine + " #" + i + " ";
+							subsLine = subsLine +  i + " ";
 							isFound = true;
 							break;
 						}
@@ -74,7 +74,7 @@ public class Pass1 extends MacroProcessor{
 			}else {
 				for(int i=0; i<alaSize; i++) {
 					if(currentWord.equals(getArgumentAtIndex(i))) {
-						subsLine = subsLine + " #" + i + " ";
+						subsLine = subsLine + i + " ";
 						isFound = true;
 						break;
 					}
@@ -86,21 +86,6 @@ public class Pass1 extends MacroProcessor{
 		}
 		
 		return subsLine;
-	}
-
-	private void prepareALA(String[] lineContent2) {
-		
-		if(lineContent2[1].matches(".+,.+")) {
-			String[] commaSepr = lineContent2[1].split(",");
-			for(int i=0; i<commaSepr.length; i++) {
-				updateAla(commaSepr[i]);
-			}
-			return;
-		}
-		for(int i=1; i<lineContent2.length; i++) {
-			updateAla(lineContent[i]);
-		}
-		
 	}
 
 }

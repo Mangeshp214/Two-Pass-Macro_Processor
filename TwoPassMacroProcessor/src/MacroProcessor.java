@@ -26,7 +26,7 @@ public class MacroProcessor {
 		System.out.println(mnt);
 		System.out.println("\n\nContents of MDT are : \n\n");
 		System.out.println(mdt);
-		System.out.println("\n\nContents of ALA are : \n\n");
+		System.out.println("\n\nContents of ALA are : \n");
 		System.out.println(ala);
 		
 		pass2.start();
@@ -51,17 +51,26 @@ public class MacroProcessor {
 		return content;
 	}
 
-
 	public static String getFileContent() {
 		return MacroProcessor.FileContent;
 	}
 	
-	
-	public static HashMap<String, Integer> getMnt() {
-		return mnt;
+	public static Integer getIndexFromMnt(String name) {
+		
+		if(mnt.containsKey(name))
+			return mnt.get(name);
+		return -1;
 	}
 
-
+	public static Boolean mntContains(String name) {
+		
+		if(mnt.containsKey(name))
+			return true;
+		
+		return false;
+		
+	}
+	
 	public static void updateMnt(String name, int mdtp) {
 		mnt.put(name, mdtp);
 	}
@@ -75,21 +84,17 @@ public class MacroProcessor {
 		return true;
 	}
 
-
-	public static ArrayList<String> getMdt() {
-		return mdt;
+	public static String getLineFromMdt(int index) {
+		return mdt.get(index);
 	}
-
 
 	public static void updateMdt(String line) {
 		mdt.add(line);
 	}
 
-
-	public static ArrayList<String> getAla() {
-		return ala;
+	public static String getLineFromAla(int index) {
+		return ala.get(index);
 	}
-
 
 	public static void updateAla(String arg) {
 		ala.add(arg);
@@ -105,6 +110,21 @@ public class MacroProcessor {
 	
 	public static void initAla() {
 		ala = new ArrayList<String>();
+	}
+
+	public void prepareALA(String[] lineContent2) {
+		
+		if(lineContent2[1].matches(".+,.+")) {
+			String[] commaSepr = lineContent2[1].split(",");
+			for(int i=0; i<commaSepr.length; i++) {
+				updateAla(commaSepr[i]);
+			}
+			return;
+		}
+		for(int i=1; i<lineContent2.length; i++) {
+			updateAla(lineContent2[i]);
+		}
+		
 	}
 
 }
